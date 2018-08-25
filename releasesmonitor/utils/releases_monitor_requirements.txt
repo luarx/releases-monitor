@@ -1,0 +1,35 @@
+NEW LIBRARY VERSIONS ALERT
+-----------------------------
+Examples of notifications:
+-https://www.softfluent.com/blog/dev/Be-notified-when-a-new-release-is-created-in-a-GitHub-repository
+
+Objetive:
+-Github
+-Docker (some projects don't have Github repo as "nginx")
+
+Screens:
+  -Login Screen:
+    -Form with user and password
+  -Main Screen:
+    *It is necessary to be logged
+    -Table of our deployed projects which we have added to version monitoring:
+      -Name of our project. Example: dev-tradingdb
+      -Name of library that we want to monitor of this project. Example: prometheus
+      -Url of Github repo
+      -Current library version
+      -Last version available of this library in the repo.
+        -If we don't have the last version it should be with another color
+        *Problem: Not every project uses the same version format, we should have a regex input to indicate that (by default vX.Y.Z)
+
+    -Button to Add new Github repos to monitoring
+    -Alert EACH WEEK on Monday of the monitored Github repos which need to update the version.
+    -Tools:
+      -Github repos. Atom feed with new releases https://github.com/dropbox/dropbox-js/releases.atom
+      -Dockerhub. It does't have an official rss with new releases, check https://rss.p.theconnman.com/#?user=TheConnMan&repo=docker-hub-rss
+
+
+Requirements
+-Python 3
+-Pip 3
+-Django 2.1
+-Feedparser
