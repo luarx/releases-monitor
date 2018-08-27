@@ -14,9 +14,9 @@ class Project(models.Model):
         (PRO, 'Production'),
     )
 
-    name = models.CharField(max_length=50, unique=True)
+    name = models.CharField(max_length=50)
     description = models.TextField(blank=True)
-    repo_url = models.URLField(max_length=200, unique=True)
+    repo_url = models.URLField(max_length=200)
     environment = models.CharField(max_length=20, choices=ENVIRONMENT_CHOICES)
     creation_date = models.DateTimeField(editable=False, default=timezone.now)
 
