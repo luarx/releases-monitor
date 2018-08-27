@@ -21,7 +21,7 @@ class Project(models.Model):
     creation_date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return "{} - {}".format(self.name, self.environment)
+        return "{}//{}".format(self.name, self.environment)
 
 
 class Library(models.Model):
@@ -44,6 +44,9 @@ class ProjectLibrary(models.Model):
     library = models.ForeignKey(Library, on_delete=models.CASCADE)
     current_version = models.CharField(max_length=20)
     creation_date = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return "{} -- {}".format(self.project, self.library)
 
     class Meta:
         verbose_name = "Library of project"
