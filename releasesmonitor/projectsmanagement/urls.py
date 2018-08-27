@@ -3,6 +3,5 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('', views.index, name='index'),
-    path('other', views.index, name='index'),
+    path('', views.project_library, name='project-library-list'),
 ]
