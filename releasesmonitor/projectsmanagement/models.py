@@ -35,9 +35,16 @@ class Library(models.Model):
     def __str__(self):
         return self.name
 
+    class Meta:
+        verbose_name_plural = "libraries"
+
 
 class ProjectLibrary(models.Model):
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
     library = models.ForeignKey(Library, on_delete=models.CASCADE)
     current_version = models.CharField(max_length=20)
     creation_date = models.DateTimeField(editable=False, default=timezone.now)
+
+    class Meta:
+        verbose_name = "Library of project"
+        verbose_name_plural = "Libraries of projects"
