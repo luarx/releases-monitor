@@ -48,3 +48,4 @@ class ProjectLibrary(models.Model):
     class Meta:
         verbose_name = "Library of project"
         verbose_name_plural = "Libraries of projects"
+        ordering = ['project']
