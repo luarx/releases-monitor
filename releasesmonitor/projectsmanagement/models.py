@@ -18,10 +18,10 @@ class Project(models.Model):
     description = models.TextField(blank=True)
     repo_url = models.URLField(max_length=200)
     environment = models.CharField(max_length=20, choices=ENVIRONMENT_CHOICES)
-    creation_date = models.DateTimeField(editable=False, default=timezone.now)
+    creation_date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.name
+        return "{} - {}".format(self.name, self.environment)
 
 
 class Library(models.Model):
@@ -29,8 +29,8 @@ class Library(models.Model):
     description = models.TextField(blank=True)
     repo_url = models.URLField(max_length=200)
     last_version = models.CharField(max_length=20, blank=True)
-    creation_date = models.DateTimeField(editable=False, default=timezone.now)
-    version_check_date = models.DateTimeField(editable=False, null=True)
+    creation_date = models.DateTimeField(auto_now_add=True)
+    version_check_date = models.DateTimeField(null=True, auto_now=True)
 
     def __str__(self):
         return self.name
@@ -43,7 +43,7 @@ class ProjectLibrary(models.Model):
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
     library = models.ForeignKey(Library, on_delete=models.CASCADE)
     current_version = models.CharField(max_length=20)
-    creation_date = models.DateTimeField(editable=False, default=timezone.now)
+    creation_date = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         verbose_name = "Library of project"
