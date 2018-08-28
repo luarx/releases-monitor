@@ -6,7 +6,7 @@ import re
 
 
 class Command(BaseCommand):
-    help = "Sync releases of libraries which we want to monitor"
+    help = "Sync last releases versions of libraries which we want to monitor"
 
     def get_last_library_release_version(self, library):
         releasesFeed = feedparser.parse("{}/releases.atom".format(library.repo_url))
