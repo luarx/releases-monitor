@@ -45,6 +45,10 @@ class ProjectLibrary(models.Model):
     current_version = models.CharField(max_length=20)
     creation_date = models.DateTimeField(auto_now_add=True)
 
+    @property
+    def is_version_updated(self):
+        return self.current_version == self.library.last_version
+
     def __str__(self):
         return "{} -- {}".format(self.project, self.library)
 
