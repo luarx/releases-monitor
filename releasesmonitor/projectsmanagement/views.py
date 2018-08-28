@@ -4,6 +4,7 @@ from projectsmanagement.models import ProjectLibrary
 from django_tables2 import RequestConfig
 from .tables import ProjectLibraryTable
 
+
 def project_library(request):
     table = ProjectLibraryTable(ProjectLibrary.objects.all())
     RequestConfig(request).configure(table)
