@@ -1,6 +1,8 @@
 from django.db import models
 from django.utils import timezone
 
+import re
+
 
 class Project(models.Model):
     DEV = 'DEV'
@@ -43,11 +45,30 @@ class ProjectLibrary(models.Model):
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
     library = models.ForeignKey(Library, on_delete=models.CASCADE)
     current_version = models.CharField(max_length=20)
+    check_mayor_version_update = models.BooleanField(
+        default=True, verbose_name="Check Mayor Update")
+    check_minor_version_update = models.BooleanField(
+        default=True, verbose_name="Check Minor Update")
+    check_patch_version_update = models.BooleanField(
+        default=False, verbose_name="Check Patch Update")
     creation_date = models.DateTimeField(auto_now_add=True)
 
     @property
     def is_version_updated(self):
-        return self.current_version == self.library.last_version
+        regex_current_version = re.search(
+            '\D*(?P<mayor>\d*)\.(?P<minor>\d*)\.(?P<patch>\d*).*$', self.current_version)
+
+        regex_last_version = re.search(
+            '\D*(?P<mayor>\d*)\.(?P<minor>\d*)\.(?P<patch>\d*).*$', self.library.last_version)
+
+        if self.check_mayor_version_update and regex_current_version.group('mayor') != regex_last_version.group('mayor'):
+            return False
+        elif self.check_minor_version_update and regex_current_version.group('minor') != regex_last_version.group('minor'):
+            return False
+        elif self.check_patch_version_update and regex_current_version.group('patch') != regex_last_version.group('patch'):
+            return False
+        else:
+            return True
 
     def __str__(self):
         return "{} -- {}".format(self.project, self.library)
@@ -55,4 +76,4 @@ class ProjectLibrary(models.Model):
     class Meta:
         verbose_name = "Library of project"
         verbose_name_plural = "Libraries of projects"
-        ordering = ['project']
+        ordering = ["project"]

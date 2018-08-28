@@ -13,7 +13,7 @@ class ProjectLibraryTable(tables.Table):
         template_name = "django_tables2/bootstrap.html"
         exclude = ("id", "creation_date", "project")
         sequence = ('projectName', 'projectEnvironment', 'library',
-                    'current_version', 'lastVersion', '...')
+                    'current_version', 'lastVersion', 'versionCheckDate', '...')
         row_attrs = {
             'class': lambda record: 'version-updated' if record.is_version_updated else 'version-outdated'
         }
