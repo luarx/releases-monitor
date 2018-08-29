@@ -24,8 +24,9 @@ SECRET_KEY = '9bn^vtrn$a*4uw)=il(9&1h65)1+6t7p2o6!k=d9n8jczh&uu3'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+# DEBUG = env.bool('DJANGO_DEBUG', False)
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -68,6 +69,33 @@ TEMPLATES = [
         },
     },
 ]
+
+LOGGING = {
+    'version': 1,
+    # 'disable_existing_loggers': False,  # For Sentry
+    'formatters': {
+        'verbose': {
+            'format': '%(asctime)s [%(levelname)s] [%(processName)s] %(message)s',
+        },
+    },
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+            'formatter': 'verbose',
+        }
+    },
+    'loggers': {
+        '': {
+            'handlers': ['console'],
+            'level': 'DEBUG' if DEBUG else 'INFO',
+        },
+        'django': {
+            'handlers': ['console'],
+            'propagate': True,
+            'level': 'ERROR',
+        },
+    }
+}
 
 WSGI_APPLICATION = 'releasesmonitor.wsgi.application'
 

@@ -1,8 +1,10 @@
 from django.core.management.base import BaseCommand
 from ...models import Library
-
+import logging
 import feedparser
 import re
+
+logger = logging.getLogger(__name__)
 
 
 class Command(BaseCommand):
@@ -19,12 +21,12 @@ class Command(BaseCommand):
             if release_version_match:
                 return release_version_match.group(0)
             else:
-                self.stdout.write(self.style.ERROR(
-                    "Library: {}, Repo: {} --- Does not follow Semantic Versioning format".format(library.name, library.repo_url)))
+                logger.error(
+                    "Library: {}, Repo: {} --- Does not follow Semantic Versioning format".format(library.name, library.repo_url))
                 return None
         else:
-            self.stdout.write(self.style.ERROR(
-                "Library: {}, Repo: {} --- Does not have any release available".format(library.name, library.repo_url)))
+            logger.error(
+                "Library: {}, Repo: {} --- Does not have any release available".format(library.name, library.repo_url))
             return None
 
     def handle(self, *args, **options):
@@ -33,7 +35,7 @@ class Command(BaseCommand):
                 library.last_version = self.get_last_library_release_version(library)
                 if library.last_version != None:
                     library.save()
-                    self.stdout.write(self.style.SUCCESS(
-                        "Library: {}, Repo: {} --- Last release version: {}".format(library.name, library.repo_url, library.last_version)))
+                    logger.info("Library: {}, Repo: {} --- Last release version: {}".format(
+                        library.name, library.repo_url, library.last_version))
             except Exception as e:
-                self.stdout.write(self.style.ERROR("[ERROR] Exception: {}".format(e.message)))
+                logger.error("[ERROR] Exception: {}".format(e))
