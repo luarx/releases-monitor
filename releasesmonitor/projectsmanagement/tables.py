@@ -15,5 +15,5 @@ class ProjectLibraryTable(tables.Table):
         sequence = ('projectName', 'projectEnvironment', 'library',
                     'current_version', 'lastVersion', 'versionCheckDate', '...')
         row_attrs = {
-            'class': lambda record: 'version-updated' if record.is_version_updated else 'version-outdated'
+            'class': lambda record: 'version-updated' if record.is_version_updated == True else ('version-outdated' if record.is_version_updated == False else 'library-last-version-not-synchronized')
         }

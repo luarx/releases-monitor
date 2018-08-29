@@ -7,19 +7,30 @@
     .version-outdated {
         background-color: #ff000096;
     }
+    .library-last-version-not-synchronized {
+        background-color: #77777794;
+    }
   </style>
 {% endblock %}
 
 {% block content %}
   <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-6">
       {% if user.is_authenticated %}
         <ul>
           <li><a href="{% url 'admin:index' %}">Management releases</a></li>
           <li><a href="{% url 'logout' %}">Logout</a></li>
         </ul>
       {% endif %}
+    </div>
+    <div class="col-md-6 text-right">
+      <span class="label label-danger">Outdated version</span>
+      <span class="label library-last-version-not-synchronized">Library last version not synchronized</span>
+    </div>
+  </div>
 
+  <div class="row">
+    <div class="col-md-12">
       {% render_table table %}
     </div>
   </div>
