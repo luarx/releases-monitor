@@ -1,0 +1,19 @@
+{% extends 'projectsmanagement/base.html' %}
+
+{% load render_table from django_tables2 %}
+
+{% block head %}
+  <style>
+    .version-outdated {
+        background-color: #ff000096;
+    }
+  </style>
+{% endblock %}
+
+{% block content %}
+  {% if user.is_authenticated %}
+    <p><a href="{% url 'logout' %}">Logout</a></p>
+  {% endif %}
+
+  {% render_table table %}
+{% endblock %}
