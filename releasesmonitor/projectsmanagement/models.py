@@ -18,7 +18,7 @@ class Project(models.Model):
 
     name = models.CharField(max_length=50)
     description = models.TextField(blank=True)
-    repo_url = models.URLField(max_length=200)
+    repo_url = models.URLField(max_length=200, blank=True)
     environment = models.CharField(max_length=20, choices=ENVIRONMENT_CHOICES)
     creation_date = models.DateTimeField(auto_now_add=True)
 
@@ -31,7 +31,7 @@ class Library(models.Model):
     description = models.TextField(blank=True)
     repo_url = models.URLField(max_length=200)
     last_version = models.CharField(
-        max_length=20, blank=True, help_text="Supported formats: X.Y.Z, vX.Y.Z, [sometext]X.Y.Z, X.Y.Z[sometext], [sometext]X.Y.Z[sometext]")
+        max_length=20, blank=True, help_text="Supported formats: X.Y.Z, vX.Y.Z, [sometext]X.Y.Z, X.Y.Z[sometext], [sometext]X.Y.Z[sometext], X.Y, vX.Y, [sometext]X.Y, X.Y[sometext], [sometext]X.Y[sometext]")
     creation_date = models.DateTimeField(auto_now_add=True)
     version_check_date = models.DateTimeField(null=True, auto_now=True)
 
@@ -46,7 +46,7 @@ class ProjectLibrary(models.Model):
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
     library = models.ForeignKey(Library, on_delete=models.CASCADE)
     current_version = models.CharField(
-        max_length=20, help_text="Supported formats: X.Y.Z, vX.Y.Z, [sometext]X.Y.Z, X.Y.Z[sometext], [sometext]X.Y.Z[sometext]")
+        max_length=20, help_text="Supported formats: X.Y.Z, vX.Y.Z, [sometext]X.Y.Z, X.Y.Z[sometext], [sometext]X.Y.Z[sometext], X.Y, vX.Y, [sometext]X.Y, X.Y[sometext], [sometext]X.Y[sometext]")
     check_mayor_version_update = models.BooleanField(
         default=True, verbose_name="Check Mayor Update")
     check_minor_version_update = models.BooleanField(
