@@ -11,9 +11,16 @@
 {% endblock %}
 
 {% block content %}
-  {% if user.is_authenticated %}
-    <p><a href="{% url 'logout' %}">Logout</a></p>
-  {% endif %}
+  <div class="row">
+    <div class="col-md-12">
+      {% if user.is_authenticated %}
+        <ul>
+          <li><a href="{% url 'admin:index' %}">Management releases</a></li>
+          <li><a href="{% url 'logout' %}">Logout</a></li>
+        </ul>
+      {% endif %}
 
-  {% render_table table %}
+      {% render_table table %}
+    </div>
+  </div>
 {% endblock %}
