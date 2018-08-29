@@ -16,7 +16,7 @@ class Command(BaseCommand):
         if releasesFeed and releasesFeed.entries:
             last_release = releasesFeed.entries[0]['id']
             release_version_match = re.search(
-                '(?<=\/)\D*(?P<mayor>\d*)\.(?P<minor>\d*)\.(?P<patch>\d*).*$', last_release)
+                '(?<=\/)\D*(?P<mayor>\d*)\.(?P<minor>\d*)(\.(?P<patch>\d*))?.*$', last_release)
 
             if release_version_match:
                 return release_version_match.group(0)
