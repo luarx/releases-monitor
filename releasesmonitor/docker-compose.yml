@@ -1,0 +1,26 @@
+version: '3'
+
+volumes:
+  nginx-shared:
+
+services:
+  nginx:
+    image: nginx:1.15.3-alpine
+    hostname: nginx
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./docker/nginx:/etc/nginx/conf.d
+      - nginx-shared:/nginx
+    depends_on:
+      - web
+
+  web:
+    command: docker/web/run_server.sh
+    build:
+      context: .
+      dockerfile: docker/web/Dockerfile
+    env_file:
+      - .env
+    volumes:
+      - nginx-shared:/nginx

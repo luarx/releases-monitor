@@ -11,6 +11,12 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
 import os
+import environ
+
+# To use env vars
+env = environ.Env()
+# TODO. Test ROOT_DIR
+ROOT_DIR = environ.Path(__file__) - 1
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -148,6 +154,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
+# TODO. Test STATIC_ROOT
+STATIC_ROOT = env('STATIC_ROOT', default=str(ROOT_DIR('staticfiles')))
 
 # Named urls
 LOGIN_URL = 'login'
