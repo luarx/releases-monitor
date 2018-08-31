@@ -16,7 +16,8 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Library',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.AutoField(auto_created=True,
+                                        primary_key=True, serialize=False, verbose_name='ID')),
                 ('name', models.CharField(max_length=50)),
                 ('description', models.TextField(blank=True)),
                 ('repo_url', models.URLField()),
@@ -28,22 +29,27 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Project',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.AutoField(auto_created=True,
+                                        primary_key=True, serialize=False, verbose_name='ID')),
                 ('name', models.CharField(max_length=50, unique=True)),
                 ('description', models.TextField(blank=True)),
                 ('repo_url', models.URLField(unique=True)),
-                ('environment', models.CharField(choices=[('DEV', 'Development'), ('STAGING', 'Staging'), ('RELEASE', 'Release'), ('PRO', 'Production')], max_length=20)),
+                ('environment', models.CharField(choices=[
+                 ('DEV', 'Development'), ('STAGING', 'Staging'), ('RELEASE', 'Release'), ('PRO', 'Production')], max_length=20)),
                 ('creation_date', models.DateTimeField(default=django.utils.timezone.now, editable=False)),
             ],
         ),
         migrations.CreateModel(
             name='ProjectLibrary',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.AutoField(auto_created=True,
+                                        primary_key=True, serialize=False, verbose_name='ID')),
                 ('current_version', models.CharField(max_length=20)),
                 ('creation_date', models.DateTimeField(default=django.utils.timezone.now, editable=False)),
-                ('library', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='projectsmanagement.Library')),
-                ('project', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='projectsmanagement.Project')),
+                ('library', models.ForeignKey(
+                    on_delete=django.db.models.deletion.CASCADE, to='projects_management.Library')),
+                ('project', models.ForeignKey(
+                    on_delete=django.db.models.deletion.CASCADE, to='projects_management.Project')),
             ],
         ),
     ]
