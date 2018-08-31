@@ -2,7 +2,7 @@
 .git
 
 # Django
-db.sqlite3
+db/*
 
 # Python
 __pycache__
