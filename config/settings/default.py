@@ -11,34 +11,31 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
 import os
-# TODO
 import environ
-#
-# # To use env vars
-# env = environ.Env()
-# # TODO. Test ROOT_DIR
-# ROOT_DIR = environ.Path(__file__) - 1
+
+# To use env vars
+env = environ.Env()
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+# (/releases-monitor/config/settings/default.py - 3 = /releses-monitor)
+ROOT_DIR = environ.Path(__file__) - 3
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '9bn^vtrn$a*4uw)=il(9&1h65)1+6t7p2o6!k=d9n8jczh&uu3'
+SECRET_KEY = env('SECRET_KEY', default='9bn^vtrn$a*4uw)=il(9&1h65)1+6t7p2o6!k=d9n8jczh&uu3')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-# DEBUG = env.bool('DJANGO_DEBUG', False)
+DEBUG = env.bool('DJANGO_DEBUG', False)
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=['*'])
 
 
 # Application definition
 
-INSTALLED_APPS = [
-    'releases_monitor.projects_management',
+DJANGO_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -47,6 +44,12 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_tables2',
 ]
+
+LOCAL_APPS = [
+    'releases_monitor.projects_management',
+]
+
+INSTALLED_APPS = DJANGO_APPS + LOCAL_APPS
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -153,8 +156,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
-# TODO. Test STATIC_ROOT
-# STATIC_ROOT = env('STATIC_ROOT', default=str(ROOT_DIR('staticfiles')))
+STATIC_ROOT = env('STATIC_ROOT', default=str(ROOT_DIR('staticfiles')))
 
 # Named urls
 LOGIN_URL = 'login'
