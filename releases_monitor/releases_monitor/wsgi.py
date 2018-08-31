@@ -1,5 +1,5 @@
 """
-WSGI config for releasesmonitor project.
+WSGI config for releases_monitor project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 
@@ -11,6 +11,6 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'releasesmonitor.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'releases_monitor.settings')
 
 application = get_wsgi_application()
