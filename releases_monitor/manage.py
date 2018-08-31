@@ -3,7 +3,7 @@ import os
 import sys
 
 if __name__ == '__main__':
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'releasesmonitor.settings')
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'releases_monitor.settings')
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:
