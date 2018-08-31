@@ -1,14 +1,14 @@
 # releases-monitor
-Releases monitor allows you to monitor version updates of each library in which you are interested.
+Releases monitor allows you to **monitor version updates** of each Github project in which you are interested.
 
-## Docker image
+## Docker images
 https://hub.docker.com/r/raulio/releases-monitor/
 
 ## Index of contents
 
 - [Installation](#installation)
 - [Sync releases version](#sync-releases-version)
-
+- [Django settings](#django-settings)
 
 Installation
 ------------
