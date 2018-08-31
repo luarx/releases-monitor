@@ -1,6 +1,6 @@
 from django.shortcuts import render
 
-from projects_management.models import ProjectLibrary
+from .models import ProjectLibrary
 from django_tables2 import RequestConfig
 from .tables import ProjectLibraryTable
 from django.contrib.auth.decorators import login_required
