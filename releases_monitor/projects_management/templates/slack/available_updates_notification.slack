@@ -1,0 +1,8 @@
+{% extends django_slack %}
+
+{% block text %}
+  Environment *{{ environment.verbose_name|upper }}* --- Project libraries must be updated:
+  {% for project_library in project_libraries_not_updated %}
+      [{{ project_library.project.name }}] - `{{ project_library.library.name }}` last version: _{{ project_library.library.last_version }}_
+  {% endfor %}
+{% endblock %}
