@@ -43,6 +43,7 @@ DJANGO_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_tables2',
+    'django_slack',
 ]
 
 LOCAL_APPS = [
@@ -162,3 +163,6 @@ STATIC_ROOT = env('STATIC_ROOT', default=str(ROOT_DIR('staticfiles')))
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'home'
+
+# Slack channel webhook
+SLACK_ENDPOINT_URL = env('SLACK_INCOMING_WEBHOOK')
