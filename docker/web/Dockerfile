@@ -16,6 +16,10 @@ RUN apk add --update --no-cache tini && \
         -o \( -type f -a -name '*.pyc' -o -name '*.pyo' \) \
         -exec rm -rf '{}' +
 
+RUN addgroup -g 1001 appuser && \
+    adduser -S -u 1001 -G appuser appuser
+USER 1001
+
 COPY . .
 
 ENTRYPOINT ["/sbin/tini", "--"]
