@@ -55,6 +55,15 @@ class ProjectLibrary(models.Model):
 
     @property
     def is_version_updated(self):
+        def is_mayor_version_updated(current, last_version):
+            return current == last_version
+
+        def is_minor_version_updated(current, last_version):
+            return current == last_version
+
+        def is_patch_version_updated(current, last_version):
+            return current == last_version
+
         if self.library.last_version:
             regex_current_version = re.search(
                 '\D*(?P<mayor>\d*)\.(?P<minor>\d*)(\.(?P<patch>\d*))?.*$', self.current_version)
@@ -62,14 +71,18 @@ class ProjectLibrary(models.Model):
             regex_last_version = re.search(
                 '\D*(?P<mayor>\d*)\.(?P<minor>\d*)(\.(?P<patch>\d*))?.*$', self.library.last_version)
 
-            if self.check_mayor_version_update and regex_current_version.group('mayor') and regex_last_version.group('mayor') and regex_current_version.group('mayor') != regex_last_version.group('mayor'):
-                return False
-            elif self.check_minor_version_update and regex_current_version.group('minor') and regex_last_version.group('minor') and regex_current_version.group('minor') != regex_last_version.group('minor'):
-                return False
-            elif self.check_patch_version_update and regex_current_version.group('patch') and regex_last_version.group('patch') and regex_current_version.group('patch') != regex_last_version.group('patch'):
-                return False
+            if self.check_patch_version_update:
+                return is_mayor_version_updated(regex_current_version.group('mayor'), regex_last_version.group('mayor'))\
+                and is_minor_version_updated(regex_current_version.group('minor'), regex_last_version.group('minor'))\
+                and is_patch_version_updated(regex_current_version.group('patch'), regex_last_version.group('patch'))
+            elif self.check_minor_version_update:
+                return is_mayor_version_updated(regex_current_version.group('mayor'), regex_last_version.group('mayor'))\
+                and is_minor_version_updated(regex_current_version.group('minor'), regex_last_version.group('minor'))
+            elif self.check_mayor_version_update:
+                return is_mayor_version_updated(regex_current_version.group('mayor'), regex_last_version.group('mayor'))
             else:
                 return True
+
         else:
             return None
 
