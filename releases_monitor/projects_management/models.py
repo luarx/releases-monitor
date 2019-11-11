@@ -31,7 +31,7 @@ class Library(models.Model):
         max_length=20, blank=True, help_text="Supported formats: X.Y.Z, vX.Y.Z, [sometext]X.Y.Z, X.Y.Z[sometext], [sometext]X.Y.Z[sometext], X.Y, vX.Y, [sometext]X.Y, X.Y[sometext], [sometext]X.Y[sometext]")
     creation_date = models.DateTimeField(auto_now_add=True)
     version_check_date = models.DateTimeField(null=True, auto_now=True)
-    last_version_date = models.DateTimeField(null=True, editable=False)
+    last_version_date = models.DateTimeField(null=True, blank=True, editable=False)
 
     def __str__(self):
         return self.name
