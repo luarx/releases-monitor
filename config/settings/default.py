@@ -13,13 +13,22 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 import os
 import environ
 
+import environ
+
+ROOT_DIR = environ.Path(__file__) - 3  # (releases-monitor/config/settings/base.py - 3 = releases-monitor/)
+# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 # To use env vars
 env = environ.Env()
 
-# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-# (/releases-monitor/config/settings/default.py - 3 = /releses-monitor)
-ROOT_DIR = environ.Path(__file__) - 3
+READ_DOT_ENV_FILE = env.bool('DJANGO_READ_DOT_ENV_FILE', default=False)
+DOT_ENV_FILE = env('DJANGO_DOT_ENV_FILE', default=None)
+if READ_DOT_ENV_FILE or DOT_ENV_FILE:
+    DOT_ENV_FILE = DOT_ENV_FILE or '.env'
+    # OS environment variables take precedence over variables from .env
+    env.read_env(str(ROOT_DIR.path(DOT_ENV_FILE)))
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
