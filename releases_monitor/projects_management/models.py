@@ -24,9 +24,21 @@ class Project(models.Model):
 
 
 class Library(models.Model):
+    GITHUB = 'GITHUB'
+    GITLAB = 'GITLAB'
+    REPO_TYPE_CHOICES = [
+        (GITHUB, 'Github'),
+        (GITLAB, 'Gitlab'),
+    ]
+
     name = models.CharField(max_length=50)
     description = models.TextField(blank=True)
     repo_url = models.URLField(max_length=200)
+    repo_type = models.CharField(
+        max_length=10,
+        choices=REPO_TYPE_CHOICES,
+        default=GITHUB,
+    )
     last_version = models.CharField(
         max_length=20, blank=True, help_text="Supported formats: X.Y.Z, vX.Y.Z, [sometext]X.Y.Z, X.Y.Z[sometext], [sometext]X.Y.Z[sometext], X.Y, vX.Y, [sometext]X.Y, X.Y[sometext], [sometext]X.Y[sometext]")
     creation_date = models.DateTimeField(auto_now_add=True)
