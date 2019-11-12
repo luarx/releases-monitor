@@ -3,6 +3,6 @@
 {% block text %}
   Environment *{{ environment.verbose_name|upper }}* --- Project libraries must be updated:
   {% for project_library in project_libraries_not_updated %}
-      [{{ project_library.project.name }}] - `{{ project_library.library.name }}` last available version: *{{ project_library.library.last_version }}*  ( _{{project_library.library.last_version_date|date:"SHORT_DATE_FORMAT"}}_ )
+      [{{ project_library.project.name }}] - `{{ project_library.library.name }}` last available version: *{{ project_library.library.last_version }}* {% if project_library.library.last_version_date %} ( _{{project_library.library.last_version_date|date:"SHORT_DATE_FORMAT"}}_ ) {% endif %}
   {% endfor %}
 {% endblock %}
