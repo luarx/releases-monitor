@@ -81,6 +81,27 @@ You may exit the web container shell with:
 exit
 ```
 
+Notify available updates
+------------
+
+Enter the Web container's command line with the following command:
+
+```
+docker-compose exec web sh
+```
+
+Once inside, sync releases version with this command:
+
+```
+python manage.py notifyavailableupdates
+```
+
+You may exit the web container shell with:
+
+```
+exit
+```
+
 Django Settings
 ---------------
 
